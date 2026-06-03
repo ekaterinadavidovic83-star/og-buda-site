@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OG Buda — фан-сайт (чёрно-красный)</title>
+  <style>
+    :root{
+      --bg:#000000;
+      --card:#0a0a0a;
+      --accent:#ff0033;
+      --accent-2:#cc0029;
+      --muted:#b3b3b3;
+      --glass: rgba(255,0,51,0.06);
+      --radius:14px;
+      font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 350px at 5% 10%, rgba(255,0,51,0.07), transparent 9%),
+        radial-gradient(700px 260px at 95% 90%, rgba(255,0,51,0.04), transparent 10%),
+        var(--bg);
+      color:#f2f2f2;
+      line-height:1.45;
+      padding:28px;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+    }
+
+    header{
+      grid-column:1/-1;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:4px;
+    }
+    .logo{
+      width:78px;height:78px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;font-size:22px;color:white;
+      box-shadow:0 8px 30px rgba(255,0,51,0.25), inset 0 -6px 18px rgba(0,0,0,0.12);
+    }
+    header h1{margin:0;font-size:28px;letter-spacing:0.3px}
+    header p{margin:0;color:var(--muted)}
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,0,51,0.03), rgba(0,0,0,0.02)), var(--card);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,0,51,0.08);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:18px;
+      align-items:center;
+    }
+    .hero .intro h2{margin:0 0 8px 0;font-size:22px}
+    .hero .intro p{color:var(--muted);margin:0 0 14px 0}
+    .btn{
+      display:inline-block;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;padding:10px 16px;border-radius:12px;text-decoration:none;font-weight:700;
+      box-shadow:0 8px 24px rgba(255,0,51,0.18);
+    }
+
+    .cover{
+      width:100%;border-radius:12px;overflow:hidden;
+      aspect-ratio:1/1;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+      border:1px solid rgba(255,0,51,0.08);
+    }
+    .cover img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .grid-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .grid-photos img{width:100%;height:80px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,0,51,0.06)}
+
+    h3.section-title{margin:18px 0 10px 0;font-size:16px;color:#fff}
+    .bio p{color:var(--muted);margin:0 0 10px 0}
+
+    .discography{display:flex;gap:10px;overflow:auto;padding-bottom:6px}
+    .album{
+      min-width:180px;background:rgba(255,0,51,0.04);
+      padding:12px;border-radius:12px;border:1px solid rgba(255,0,51,0.06);
+    }
+    .album h4{margin:0 0 6px 0;font-size:14px;color:#fff}
+    .album p{margin:0;color:var(--muted);font-size:13px}
+
+    aside{position:relative;height:100%;display:flex;flex-direction:column;gap:18px}
+    .stats{display:flex;gap:10px;margin-top:6px}
+    .stat{
+      background:linear-gradient(180deg, rgba(255,0,51,0.04), rgba(0,0,0,0.02));
+      padding:10px;border-radius:12px;flex:1;text-align:center;
+      border:1px solid rgba(255,0,51,0.06);
+    }
+    .stat strong{display:block;font-size:18px;color:#fff}
+
+    .playlist{display:flex;flex-direction:column;gap:8px}
+    .track{
+      display:flex;gap:10px;align-items:center;
+      background: rgba(255,0,51,0.03);
+      padding:8px;border-radius:10px;cursor:pointer;
+      border:1px solid rgba(255,0,51,0.04);
+    }
+    .track:hover{border-color:rgba(255,0,51,0.25);background:rgba(255,0,51,0.06)}
+    .track img{width:48px;height:48px;object-fit:cover;border-radius:8px}
+    .track .meta{flex:1}
+    .track .meta b{display:block;color:#fff}
+    .play{
+      width:40px;height:40px;border-radius:10px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;color:white;font-weight:800;
+    }
+
+    .spotify-embed{
+      width:100%;border-radius:12px;overflow:hidden;
+      border:1px solid rgba(255,0,51,0.08);
+    }
+    .spotify-embed iframe{display:block;width:100%;border:0}
+
+ /* Соцсети */
+    .social-links{display:flex;flex-direction:column;gap:10px}
+    .social-link{
+      display:flex;align-items:center;gap:12px;
+      padding:12px;border-radius:12px;text-decoration:none;color:white;font-weight:700;
+      transition:transform 0.15s ease,opacity 0.15s ease;
+    }
+    .social-link:hover{transform:translateX(4px);opacity:0.9}
+    .social-link.vk{background:linear-gradient(90deg,var(--vk),#0055BB)}
+    .social-link.tg{background:linear-gradient(90deg,var(--tg),#178CB5)}
+    .social-link.ig{background:linear-gradient(135deg,#E1306C,#F77737,#E1306C)}
+    .social-link.yt{background:linear-gradient(90deg,var(--yt),#CC0000)}
+    .social-link.tt{background:linear-gradient(90deg,#000000,#111111);border:1px solid #333}
+    .social-icon{
+      width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.15);
+      display:grid;place-items:center;font-size:18px;
+    }
+    .social-text{flex:1}
+    .social-text b{display:block;font-size:14px}
+    footer{
+      grid-column:1/-1;margin-top:18px;text-align:center;color:var(--muted);font-size:13px
+    }
+
+    @media (max-width:960px){
+      .container{grid-template-columns:1fr;padding:18px}
+      .hero{grid-template-columns:1fr}
+      body,.container{padding:18px}
+      aside{order:3}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">OG</div>
+      <div>
+        <h1>OG Buda</h1>
+        <p>Рэпер — чёрно-красный фан-сайт с плеерами</p>
+      </div>
+    </header>
+
+    <main class="card">
+      <section class="hero">
+        <div class="intro">
+          <h2>Григорий Ляхов «OG Buda»</h2>
+          <p>Российский рэп-исполнитель, участник Melon Music и RNDM Crew. Известен атмосферным звучанием и серией FreeRio.</p>
+          <a class="btn" href="#spotify">Слушать последний альбом</a>
+
+          <h3 class="section-title">Краткая биография</h3>
+          <div class="bio">
+            <p>Родился 10 января 1994 года. В дискографии — студийные альбомы, EP и синглы; последний альбом — «Скучаю, но ещё работаю» (2025).</p>
+            <p>Стиль — детройт-рэп, drill,sexy drill, эмоциональные тексты и сильный вокал.</p>
+          </div>
+
+          <h3 class="section-title">Дискография (выборка)</h3>
+          <div class="discography" id="discography">
+            <div class="album">
+              <h4>Скучаю, но ещё работаю</h4>
+              <p>2025 — альбом (последний)</p>
+            </div>
+            <div class="album">
+              <h4>FreeRio 3</h4>
+              <p>2024 — альбом</p>
+            </div>
+            <div class="album">
+              <h4>Скучаю, но работаю</h4>
+              <p>2023 — альбом</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="cover">
+            <!-- поменяйте на своё фото -->
+            <img src="C:\Users\user\Desktop\ог буда\a1856eda6358c1817fdd854584bd1257.jpg" alt="OG Buda cover" />
+          </div>
+          <div class="grid-photos">
+            <img src="C:\Users\user\Desktop\ог буда\429325190886c0a7544dc61b87bf2390.jpg" alt="OG Buda photo 2" />
+            <img src="C:\Users\user\Desktop\ог буда\1.webp" alt="OG Buda photo 3" />
+            <img src="C:\Users\user\Desktop\ог буда\7e363e0e1566c83f3cc06284f6c573c5.jpg" alt="OG Buda photo 4" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Клипы в VK Видео -->
+      <h3 class="section-title">Клипы в VK Видео</h3>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+        <!-- Порш -->
+        <a class="clip-card" href="https://vk.com/video-84440824_456259360" target="_blank" rel="noopener noreferrer">
+          <div class="clip-thumb">
+            <img src="C:\Users\user\Desktop\ог буда\m1000x1000.jpg" width
+="192" height="192" alt="Порш thumbnail" loading="lazy" />
+          </div>
+          <div class="clip-title">Порш</div>
+          <div class="clip-meta">OG Buda • 3:44 • 2023</div>
+          <div class="clip-btn">Смотреть в VK Видео</div>
+          <p style="margin:8px 0 0 0;color:var(--muted);font-size:12px">Официальный клип на трек «Порш» (лид-сингл с альбома Pox Vawё 1.0)</p>
+        </a>
+
+        <!-- Дефффчонки -->
+        <a class="clip-card" href="https://vk.com/video-130653822_456240694" target="_blank" rel="noopener noreferrer">
+          <div class="clip-thumb">
+            <img src="C:\Users\user\Desktop\ог буда\8c23e235209aef5f0787df69d462f138.jpg" width
+="192" height="192" alt="Дефффчонки thumbnail" loading="lazy" />
+          </div>
+          <div class="clip-title">Дефффчонки</div>
+          <div class="clip-meta">OG Buda • 3:07 • 2025</div>
+          <div class="clip-btn">Смотреть в VK Видео</div>
+          <p style="margin:8px 0 0 0;color:var(--muted);font-size:12px">Официальный клип из альбома «Скучаю, но ещё работаю» </p>
+        </a>
+      </div>
+
+      <!-- Spotify Embed: последний альбом -->
+      <h3 class="section-title" id="spotify">Последний альбом в Spotify</h3>
+      <p style="color:var(--muted);margin:0 0 10px 0">OG Buda — «Скучаю, но ещё работаю» (2025). Нажмите Play в плеере ниже.</p>
+      <div class="spotify-embed">
+        <!-- embed альбома Spotify — замените src на свой если нужно -->
+         <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/album/7kLb2XBbn4ufPoqbFmAfAw?utm_source=generator&theme=0"
+          width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+        </iframe>
+      </div>
+      <p style="color:var(--muted);font-size:13px;margin:8px 0 0 0">
+            </p>
+
+    </main>
+
+    <aside>
+      <div class="card">
+        <h3 class="section-title">Статистика</h3>
+        <div class="stats">
+          <div class="stat"><strong>+1.2M</strong><span style="color:var(--muted)">прослушиваний</span></div>
+          <div class="stat"><strong>10+</strong><span style="color:var(--muted)">альбомов/EP</span></div>
+        </div>
+
+       <h3 class="section-title" style="margin-top:12px">Популярные треки (Spotify)</h3>
+        <div class="playlist" id="playlist">
+          <!-- Прощай :( -->
+          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7mpgQMC4VFMYvjzz5IiO8K?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          
+            <div class="meta">
+              <b>Прощай :(</b>
+              <span>OG Buda • SZN (2025)</span>
+            </div>
+          
+          </a>
+
+          <!-- Капли -->
+         <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/2W1j5QPj8ANlx2dgoTW9A5?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        
+            <div class="meta">
+              <b>Капли</b>
+              <span>OG Buda, Дора • 2022</span>
+            </div>
+         
+          </a>
+        </div>
+      </div>
+ <!-- Соцсети -->
+        <h3 class="section-title" style="margin-top:12px">Соцсети OG Buda</h3>
+        <div class="social-links">
+          <a class="social-link vk" href="https://vk.com/ogbuda" target="_blank" rel="noopener noreferrer">
+            <div class="social-icon">VK</div>
+            <div class="social-text">
+              <b>ВКонтакте</b>
+              <span>Официальная страница</span>
+            </div>
+          </a>
+
+          <a class="social-link tg" href="https://t.me/budaog" target="_blank" rel="noopener noreferrer">
+            <div class="social-icon">TG</div>
+            <div class="social-text">
+              <b>Telegram</b>
+              <span>Канал BUDA +</span>
+            </div>
+          </a>
+
+          <a class="social-link ig" href="https://www.instagram.com/budaog/" target="_blank" rel="noopener noreferrer">
+            <div class="social-icon">IG</div>
+            <div class="social-text">
+              <b>Instagram</b>
+              <span>1.5+ млн подписчиков</span>
+            </div>
+          </a>
+
+          <a class="social-link yt" href="https://www.youtube.com/@ogbuda" target="_blank" rel="noopener noreferrer">
+            <div class="social-icon">YT</div>
+            <div class="social-text">
+              <b>YouTube</b>
+              <span>Клипы и стримы</span>
+            </div>
+          </a>
+
+          <a class="social-link tt" href="https://www.tiktok.com/@ogbuda1" target="_blank" rel="noopener noreferrer">
+            <div class="social-icon">TT</div>
+            <div class="social-text">
+              <b>TikTok</b>
+              <span>@ogbuda1</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+                <div class="card">
+        <h3 class="section-title">Контакты</h3>
+        <p style="color:var(--muted);margin:0 0 8px 0">Официальные страницы: социальные сети, лейбл и промо.</p>
+        <p style="margin:0;color:var(--muted);font-size:13px">Для пресс и букинга — добавьте контакты здесь.</p>
+      </div>
+    </aside>
+
+    <footer>
+      Информация собрана из открытых источников. Последний альбом: «Скучаю, но ещё работаю» (2025). 
+    </footer>
+  </div>
+
+  <script>
+    // Простой локальный плеер для треков
+    document.querySelectorAll('.track').forEach(t=>{
+      t.addEventListener('click',()=>{
+        const src = t.getAttribute('data-src');
+        if(!src) return alert('Путь к треку не указан — замените data-src на путь к mp3.');
+        let audio = document.getElementById('mini-audio');
+        if(!audio){
+          audio = document.createElement('audio');
+          audio.id='mini-audio';
+          document.body.appendChild(audio);
+        }
+        if(audio.src !== src){
+          audio.src = src;
+          audio.play();
+        } else {
+          if(audio.paused) audio.play(); else audio.pause();
+        }
+      })
+    })
+  </script>
+</body>
+</html>
